@@ -1,3 +1,8 @@
+"""
+Selenium powered bot that opens instagram,log in, enter preselected account
+and starts to follow followers of this account.
+"""
+
 from selenium import webdriver
 from selenium.webdriver import ActionChains
 from selenium.webdriver.common.actions.wheel_input import ScrollOrigin
@@ -5,8 +10,8 @@ from selenium.webdriver.common.by import By
 import time
 
 SIMILAR_ACCOUNT = "xayoo777"
-USERNAME = "antycwel12@gmail.com"
-PASSWORD = "gitarasiemadab"
+USERNAME = "pawulon.bas@o2.pl"
+PASSWORD = "testuje_herbate"
 URL = "https://www.instagram.com/"
 
 
@@ -24,12 +29,15 @@ class InstaFollower:
             "2]/div/button[1]",
         )
         accept_cookies.click()
-        time.sleep(1)
+
+        time.sleep(1.1)
         username_input = self.driver.find_element(By.NAME, "username")
         username_input.send_keys(USERNAME)
+        time.sleep(2.2)
 
         password_input = self.driver.find_element(By.NAME, "password")
         password_input.send_keys(PASSWORD)
+        time.sleep(4.3)
 
         login_button = self.driver.find_element(
             By.XPATH, '//*[@id="loginForm"]/div/div[3]/button/div'
@@ -76,8 +84,11 @@ class InstaFollower:
     def follow(self):
         follow_button = self.driver.find_elements(By.CLASS_NAME, "_acas")
         for button in follow_button:
-            button.click()
-            time.sleep(5.6)
+            try:
+                button.click()
+                time.sleep(5.6)
+            except:
+                print("already following")
 
 
 bot = InstaFollower()
