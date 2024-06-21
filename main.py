@@ -21,7 +21,7 @@ class InstaFollower:
         chrome_options.add_experimental_option("detach", True)
         self.driver = webdriver.Chrome(options=chrome_options)
 
-    def login(self):
+    def login(self):  # Logging into account
         self.driver.get(URL)
         accept_cookies = self.driver.find_element(
             By.XPATH,
@@ -58,7 +58,7 @@ class InstaFollower:
         )
         notif_button.click()
 
-    def find_followers(self):
+    def find_followers(self):  # Get specific user page
         self.driver.get(f"{URL}/{SIMILAR_ACCOUNT}")
         time.sleep(4.1)
         followers = self.driver.find_element(
@@ -81,13 +81,13 @@ class InstaFollower:
                 scroll_origin, 0, 10000
             ).perform()
 
-    def follow(self):
+    def follow(self):  # Process of clicking follow button
         follow_button = self.driver.find_elements(By.CLASS_NAME, "_acas")
         for button in follow_button:
             try:
                 button.click()
                 time.sleep(5.6)
-            except:
+            except FileNotFoundError:
                 print("already following")
 
 
